@@ -1,18 +1,22 @@
-# Drug-Target Interaction (DTI) Prediction using GNNs
+# Graph Neural Network for Molecular Property Prediction
 
-## Project Overview
-Predicting the binding affinity between drug molecules and protein targets is a fundamental challenge in AI-driven drug discovery. This project implements a **Graph Neural Network (GNN)** to process molecular structures directly from SMILES strings, treating atoms as nodes and chemical bonds as edges. This approach allows the model to learn structural fingerprints without manual feature engineering.
+![PyTorch Geometric](https://img.shields.io/badge/PyTorch_Geometric-Deep_Learning-red)
+![RDKit](https://img.shields.io/badge/RDKit-Cheminformatics-blue)
 
-## Technical Approach
-1. **Featurization:** Utilized **RDKit** to convert SMILES strings into graph representations (Adjacency Matrices + Node Feature vectors based on atom type).
-2. **Architecture:** Implemented a custom Message-Passing GNN in **PyTorch**. The model aggregates atomic features across the molecular graph to learn a latent representation of the molecule.
-3. **Learning Task:** Trained on a regression task to predict Binding Affinity (pKd) scores.
+## 🧬 Project Overview
+This project implements a **Graph Neural Network (GNN)** to predict molecular properties directly from chemical structures (SMILES). By representing molecules as graphs—where atoms are nodes and bonds are edges—the model captures the topological structure of drugs better than traditional string-based methods.
 
-## Key Technologies
-- **Python**
-- **RDKit** (Cheminformatics & Graph Generation)
-- **PyTorch** (Deep Learning & Autograd)
-- **Graph Theory** (Adjacency Matrices)
+## ⚙️ Methodology
+1.  **Data Processing:** * Used **RDKit** to parse SMILES strings.
+    * Converted molecules into **Undirected Graphs**.
+    * Node Features: Atomic Numbers.
+    * Edge Features: Connectivity (Adjacency List).
+2.  **Model Architecture:**
+    * **3x GCNConv Layers:** To perform message passing and aggregate local chemical environments.
+    * **Global Mean Pooling:** To generate a fixed-size molecular fingerprint from variable-sized graphs.
+    * **Linear Output:** To regress the final property score.
+3.  **Dataset:** * Utilized the **ESOL (Delaney)** benchmark dataset to train and validate the graph topology extraction pipeline.
 
-## Usage
-Run the `Drug_Target_Interaction_GNN.ipynb` notebook to see the end-to-end pipeline, from SMILES input to affinity prediction.
+## 🚀 How to Run
+1.  Install dependencies: `pip install torch torch_geometric rdkit-pypi pandas`
+2.  Run `Drug_Interaction_GNN.ipynb`
